@@ -40,23 +40,28 @@ public class WorkDistributor {
 
 	public static void main(String[] args) {
 
-		if (args.length > 0) {
+		try {
+			
+			// check for number of arguments
+			if (args.length != 3)
+				throw new IllegalArgumentException();
 
-			try {
-				
-				// read from arguments
-				int totalSize = Integer.parseInt(args[0]);
-				int chunkSize = Integer.parseInt(args[1]);
-				int noOfMachines = Integer.parseInt(args[2]);
+			// read from arguments
+			int totalSize = Integer.parseInt(args[0]);
+			int chunkSize = Integer.parseInt(args[1]);
+			int noOfMachines = Integer.parseInt(args[2]);
 
-				// call Split function
-				System.out.print(Split(totalSize, chunkSize, noOfMachines));
+			// check sanity of arguments
+			if (totalSize == 0 || chunkSize == 0 || noOfMachines == 0)
+				throw new IllegalArgumentException();
 
-			} catch (NumberFormatException e) {
+			// call Split function
+			System.out.print(Split(totalSize, chunkSize, noOfMachines));
 
-				System.err.println("Arguments" + " must be integers");
-				System.exit(1);
-			}
+		} catch (IllegalArgumentException e) {
+
+			System.err.println("All the three arguments must be integers and greater than 0");
+			System.exit(1);
 		}
 	}
 
